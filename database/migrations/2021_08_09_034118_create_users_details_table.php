@@ -14,18 +14,18 @@ class CreateUsersDetailsTable extends Migration
     public function up()
     {
         Schema::create('user_details', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('thai_firstname');
-            $table->string('thai_lastname');
-            $table->string('nickname');
-            $table->string('phone_number');
-            $table->string('affiliation');
-            $table->string('address');
-            $table->string('date_of_birth');
-            $table->string('blood_type');
+            $table->string('thai_firstname')->nullable();;
+            $table->string('thai_lastname')->nullable();;
+            $table->string('nickname')->nullable();;
+            $table->string('phone_number')->nullable();;
+            $table->string('affiliation')->nullable();;
+            $table->string('address')->nullable();;
+            $table->date('date_of_birth')->nullable();;
+            $table->string('blood_type')->nullable();;
             $table->string('status');
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ class CreateUsersDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_details');
+        Schema::dropIfExists('user_details');
     }
 }
