@@ -23,18 +23,18 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <p>header section</p>
                     {{ $header1 }}
                 </div>
             </header>
 
             <!-- Page Content -->
             <main>
-                <p>main section</p>
                 {{ $slot }}
             </main>
 
-            <p>Footer section</p>
+            <footer>
+                <p>SLRI Lab Info Management System - Copyright 2021 - C. Euaruksakul</p>
+            </footer>
         </div>
     </body>
 </html>

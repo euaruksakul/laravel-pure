@@ -15,6 +15,7 @@
                     {{ $detail -> firstname }}
                     {{ $detail -> lastname }}  
                     {{ $detail -> thai_firstname }}  
+                    
                 </div>
             </div>
         </div>

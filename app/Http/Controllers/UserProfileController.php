@@ -11,7 +11,8 @@ class UserProfileController extends Controller
     public function show($id){
         //$id = Auth::id();
         return view('users.show',[
-            'detail' => UserDetail::findOrFail($id)
+            //'detail' => UserDetail::findOrFail($id)
+            'detail' => UserDetail::where('user_id', $id)->firstOrFail() //Search column name = user_id
         ]);
     }
 }

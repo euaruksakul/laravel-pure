@@ -11,8 +11,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+
+Route::get('/users/{id}/edit', function () {
+    return view('users.editProfile');
+})->name('users.editProfile');
+
 //Route::get('/test', [TestController::class,'goTest']);
 Route::get('/users/{id}', [UserProfileController::class, 'show'])->middleware(['auth'])->name('user.id');
+
+
+
 
 require __DIR__.'/auth.php';
 
