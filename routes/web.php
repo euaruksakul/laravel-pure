@@ -12,12 +12,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/users/{id}/edit', function () {
-    return view('users.editProfile');
-})->name('users.editProfile');
+Route::get('/user-details/{id}/edit', function () {
+    return view('user-details.edit');
+})->name('user_details.edit');
 
-//Route::get('/test', [TestController::class,'goTest']);
-Route::get('/users/{id}', [UserProfileController::class, 'show'])->middleware(['auth'])->name('user.id');
+Route::get('/user-details/{id}', [UserProfileController::class, 'show'])->middleware(['auth'])->name('user.id');
 
 
 
