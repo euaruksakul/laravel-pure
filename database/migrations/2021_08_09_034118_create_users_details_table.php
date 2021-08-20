@@ -26,7 +26,7 @@ class CreateUsersDetailsTable extends Migration
             $table->string('address')->nullable();;
             $table->date('date_of_birth')->nullable();;
             $table->string('blood_type')->nullable();;
-            $table->string('status');
+            $table->string('status')->nullable();;
             $table->timestamps();
         });
     }
