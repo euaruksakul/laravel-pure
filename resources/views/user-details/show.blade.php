@@ -33,6 +33,31 @@
                             <td>Nick name: </td>
                             <td>{{ $detail -> nickname }}</td>
                         </tr>
+                        <tr>
+                            <td>Phone number: </td>
+                            <td>{{ $detail -> phone_number }}</td>
+                        </tr>
+                        <tr>
+                            <td>Affiliation: </td>
+                            <td>{{ $detail -> affiliation }}</td>
+                        </tr>
+                        <tr>
+                            <td>Address: </td>
+                            <td>{{ $detail -> address }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth: </td>
+                            <td>{{ $detail -> date_of_birth }}</td>
+                        </tr>
+                        <tr>
+                            <td>Blood type: </td>
+                            <td>{{ $detail -> blood_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Status: </td>
+                            <td>{{ $detail -> status }}</td>
+                        </tr>
+                        
                     </table>
                     
                 </div>
