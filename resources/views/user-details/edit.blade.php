@@ -73,8 +73,19 @@
         <div>
             <x-label for="status" :value="__('Status')" />
 
-            <x-input id="status" name="status" value="{{ $detail -> status}}" class="block mt-1 w-full" type="text" />
+            <select class="form-control" id="status" name="status">
+                <option value="Permanent staff (พนักงาน)">Permanent staff (พนักงาน)</option>
+                <option value="Contracted staff (จ้างเหมาปฏิบัติการ)">Contracted staff (จ้างเหมาปฏิบัติการ)</option>
+                <option value="Temporary worker  (ลูกจ้างโครงการ)">Temporary worker  (ลูกจ้างโครงการ)</option>
+                <option value="Part-time student (นักศึกษาทุนผู้ช่วยวิจัย)">Part-time student (นักศึกษาทุนผู้ช่วยวิจัย)</option>
+            </select>
+
+            <!-- change selection to the recorded value with javascript -->
+            <script>
+                document.getElementById("status").value ="{{ $detail -> status }}";
+            </script>
         </div>
+
 
         <div class="flex items-center justify-end mt-4">
             <x-button class="ml-4">

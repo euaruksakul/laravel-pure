@@ -55,6 +55,14 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME); //CE: To be changed to user details page
+        //add a row in user_details table
+        $id = Auth::user()->id;
+        $userDetail = new UserDetail(); //Use the UserDetail model
+        $userDetail->user_id = $id;
+        
+        $userDetail->save();
+
+        //return redirect(RouteServiceProvider::HOME); //CE: To be changed to user details page
+        return redirect()->route('user_details.edit',[Auth::user()->id]);
     }
 }
