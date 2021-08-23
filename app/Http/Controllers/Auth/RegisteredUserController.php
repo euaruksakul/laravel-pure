@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        //add a row in user_details table
+        //add a row in user_details table (added by CE 20.08.2021)
         $id = Auth::user()->id;
         $userDetail = new UserDetail(); //Use the UserDetail model
         $userDetail->user_id = $id;
