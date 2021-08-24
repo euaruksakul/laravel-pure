@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\AjaxController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,11 @@ Route::get('/projects', [ProjectController::class, 'index'])->middleware(['auth'
 Route::get('/projects/{id}', [ProjectController::class, 'show'])->middleware(['auth'])->name('projects.show');
 Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->middleware(['auth'])->name('projects.edit');
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware(['auth'])->name('projects.update');
+
+//AJAX request
+Route::get('/ajaxRequest', [AjaxController::class, 'ajaxRequest']);
+Route::post('/ajaxRequest', [AjaxController::class, 'ajaxRequestPost'])->name('ajaxRequest.post');
+
 
 require __DIR__.'/auth.php';
 

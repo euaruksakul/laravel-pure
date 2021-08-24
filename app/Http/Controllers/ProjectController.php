@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; //For query builder
 
 class ProjectController extends Controller
 {
@@ -54,9 +55,17 @@ class ProjectController extends Controller
     }
 
     public function show($id){
-        //return dd($id);
+        //PROJECT MEMBERs
+        $projectMembers = DB::table('project_members')
+            ->join('user_details', 'project_members.member_id', '=', 'user_details.user_id')
+            ->select('project_members.member_id', 'user_details.firstname', 'user_details.lastname')
+            ->where('project_members.project_id', '=', $id)
+            ->get();
+        //return dd($projectMembers);
+
         return view('projects.show',[
-            'projectDetail' => Project::findOrFail($id)
+            'projectDetail' => Project::findOrFail($id),
+            'projectMembers' => $projectMembers
         ]);
     }
 
