@@ -13,6 +13,43 @@ class AjaxController extends Controller
         return view('ajaxRequest');
     }
     */
+    public function ajaxRequestRemoveMember(Request $request){
+        $member=ProjectMember::
+                where([
+                    ['project_id', '=', $request->project_id],
+                    ['member_id', '=', $request->member_id]
+                ]);
+        $member->delete();
+        $projectMembers = DB::table('project_members')
+            ->join('user_details', 'project_members.member_id', '=', 'user_details.user_id')
+            ->select('project_members.member_id', 'user_details.firstname', 'user_details.lastname')
+            ->where('project_members.project_id', '=', $request->project_id)
+            ->get();
+        
+        $htmlResult = "<table class='table'>";
+        $htmlResult .= "<tr><th>First name</th><th>Last name</th><th>Action</th></tr>";
+        foreach($projectMembers as $projectMember){
+            $htmlResult .= "<tr>";
+            $htmlResult .= "<td>".$projectMember->firstname."</td>";
+            $htmlResult .= "<td>".$projectMember->lastname."</td>";
+            $htmlResult .= "<td>
+                    <button
+                    type='button'
+                    id='button_".$projectMember->member_id."'
+                    class='button_removeProjectMember btn btn-info btn-sm'
+                    data-value1='".$request->project_id."'
+                    data-value2='".$projectMember->member_id."'
+                    onclick='RemoveMember(this.getAttribute(`data-value1`),this.getAttribute(`data-value2`));'
+                    >remove
+                </button>
+            </td>";
+            $htmlResult .= "</tr>";
+        }
+        $htmlResult .="</table>";
+        return $htmlResult;
+    }
+
+
     public function ajaxRequestAddMember(Request $request){
         
         $newMembership = new ProjectMember();
@@ -20,31 +57,37 @@ class AjaxController extends Controller
         $newMembership->member_id = $request->member_id;
 
         $newMembership->save();
+
+        $projectMembers = DB::table('project_members')
+            ->join('user_details', 'project_members.member_id', '=', 'user_details.user_id')
+            ->select('project_members.member_id', 'user_details.firstname', 'user_details.lastname')
+            ->where('project_members.project_id', '=', $request->project_id)
+            ->get();
+        
+        $htmlResult = "<table class='table'>";
+        $htmlResult .= "<tr><th>First name</th><th>Last name</th><th>Action</th></tr>";
+        foreach($projectMembers as $projectMember){
+            $htmlResult .= "<tr>";
+            $htmlResult .= "<td>".$projectMember->firstname."</td>";
+            $htmlResult .= "<td>".$projectMember->lastname."</td>";
+            $htmlResult .= "<td>
+                    <button
+                    type='button'
+                    id='button_".$projectMember->member_id."'
+                    class='button_removeProjectMember btn btn-info btn-sm'
+                    data-value1='".$request->project_id."'
+                    data-value2='".$projectMember->member_id."'
+                    onclick='RemoveMember(this.getAttribute(`data-value1`),this.getAttribute(`data-value2`));'
+                    >remove
+                </button>
+            </td>";
+            $htmlResult .= "</tr>";
+        }
+        $htmlResult .="</table>";
+        return $htmlResult;
     }
 
     public function ajaxRequestPost(Request $request){
-        //return dd($request->searchString);
-        //return dd($request->project_id);
-
-        
-        $test=DB::table('project_members')
-        ->select('member_id')
-        ->where('project_id', '=', $request->project_id)
-        ->get()
-        ->pluck('member_id');
-        //->toarray();
-        
-        //return dd($test);
-        //$test=array_values($test);
-        //$test2=[1,11];
-        //return dd($test);
-
-        /*
-        $rawQuery='SELECT `firstname` FROM `user_details` 
-        WHERE (`firstname` LIKE "%'.$request->searchString.'%" AND
-         `user_id` NOT IN (SELECT `member_id` FROM `project_members` WHERE `project_members`.`project_id` = '.$request->project_id.'))';
-         $searchResults = DB::raw(rawQuery);
-        */
 
         $searchResults = DB::table('user_details')
             ->select('user_details.user_id', 'user_details.firstname', 'user_details.lastname', 'user_details.nickname', 'user_details.status')             
@@ -61,7 +104,7 @@ class AjaxController extends Controller
             })
             ->get();
            
-            $htmlResult = "<table class='table'>";
+            $htmlResult = "<h4>Search results:</h4><table class='table'>";
             $htmlResult .= "<tr><th>Name</th><th>Division</th><th>Status</th><th>Action</th></tr>";
             
             foreach ($searchResults as $result){

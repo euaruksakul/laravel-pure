@@ -30,6 +30,7 @@ Route::put('/projects/{id}', [ProjectController::class, 'update'])->middleware([
 Route::get('/ajaxRequest', [AjaxController::class, 'ajaxRequest']);
 Route::post('/ajaxRequest', [AjaxController::class, 'ajaxRequestPost'])->name('ajaxRequest.post');
 Route::post('/ajaxRequest/addMember', [AjaxController::class, 'ajaxRequestAddMember'])->name('ajaxRequest.addMember');
+Route::post('/ajaxRequest/removeMember', [AjaxController::class, 'ajaxRequestRemoveMember'])->name('ajaxRequest.removeMember');
 
 
 require __DIR__.'/auth.php';

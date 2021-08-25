@@ -39,21 +39,30 @@
                         
                     </table>
                     <br>
-                    <h2>Project member</h2>
-                    <table>
-                        <tr>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Action</th>
-                        </tr>
-                        @foreach($projectMembers as $projectMember)
+                    <h2>Project members</h2>
+                    <div id="ProjectMember">
+                        <table class='table'>
                             <tr>
-                                <td>{{ $projectMember -> firstname }}</td>
-                                <td>{{ $projectMember -> lastname }}</td>
-                                <td>Delete user</td>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Action</th>
                             </tr>
-                        @endforeach
-                    </table>
+                            @foreach($projectMembers as $projectMember)
+                                <tr>
+                                    <td>{{ $projectMember -> firstname }}</td>
+                                    <td>{{ $projectMember -> lastname }}</td>
+                                    <td>
+                                        <button type='button'
+                                            class='button_removeProjectMember btn btn-info btn-sm'
+                                            data-value1='{{ $projectDetail->id }}'
+                                            data-value2='{{ $projectMember->member_id }}'
+                                            onclick="RemoveMember(this.getAttribute('data-value1'),this.getAttribute('data-value2'));">remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
                     <br>
                     <form>
                         <div class="form-group">
@@ -67,14 +76,9 @@
                             </x-button>
                         </div>  
                     </form>
-                    <br>
-
-                    <h3>Search results:</h3>
                     <div class="row" id="SearchResults">
                         <!--display search result here (from jQuery .ajax)-->
                     </div>
-                    
-
                 </div>
                 <a href="{{ route('projects.edit',$projectDetail -> id) }}">Edit project detail</a>
             </div>
@@ -123,11 +127,30 @@
       },
       url: "{{ route('ajaxRequest.addMember') }}",
 
-      success: function (data){
-        //Change the current project member table without reloading
-        //$("#current_member").html(data);
-        //document.location.reload(true);
-      }
+      success:function(htmlResult){
+            //console.log(htmlResult);
+
+            $("#ProjectMember").html(htmlResult);
+        }
     });
   }
 </script>
+
+<script>
+    function RemoveMember(project_id,user_id){
+      $.ajax({
+          type: "post",
+          data: {
+              project_id : project_id,
+              member_id : user_id
+          },
+          url: "{{ route('ajaxRequest.removeMember') }}",
+
+          success:function(htmlResult){
+            $("#ProjectMember").html(htmlResult);
+          }
+      })
+    }                         
+</script>
+
+  
