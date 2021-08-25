@@ -99,12 +99,35 @@
         $.ajax({
         type: "POST",
         url:"{{ route('ajaxRequest.post') }}",
-        data:{searchString:searchString},
+        data:{
+            searchString:searchString,
+            project_id:{{ $projectDetail -> id }}
+            },
         success:function(htmlResult){
-            console.log(htmlResult);
+            //console.log(htmlResult);
 
             $("#SearchResults").html(htmlResult);
         }
         });
     });
+</script>
+
+<script>
+  function AddMember(user_id){
+    
+    $.ajax({
+      type: "post",
+      data: {
+        project_id : {{ $projectDetail -> id }},
+        member_id : user_id
+      },
+      url: "{{ route('ajaxRequest.addMember') }}",
+
+      success: function (data){
+        //Change the current project member table without reloading
+        //$("#current_member").html(data);
+        //document.location.reload(true);
+      }
+    });
+  }
 </script>
