@@ -25,7 +25,7 @@ class ProjectController extends Controller
 
         $projectDetail->save();
 
-        return redirect('dashboard');
+        return redirect()->route('projects.index');
     }
 
     public function update($id, Request $request){

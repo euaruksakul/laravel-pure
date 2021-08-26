@@ -23,7 +23,7 @@
                             </tr>
                         @endforeach
                     </table>
-                    
+                    <a href="{{ route('projects.create') }}">Create new project</a>
                 </div>
                 
             </div>
