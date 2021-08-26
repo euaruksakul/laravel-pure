@@ -6,13 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //For query builder
 use App\Models\ProjectMember;
 
-class AjaxController extends Controller
-{
-    /*
-    public function ajaxRequest(){
-        return view('ajaxRequest');
-    }
-    */
+class AjaxController extends Controller{
+
     public function ajaxRequestRemoveMember(Request $request){
         $member=ProjectMember::
                 where([
@@ -48,7 +43,6 @@ class AjaxController extends Controller
         $htmlResult .="</table>";
         return $htmlResult;
     }
-
 
     public function ajaxRequestAddMember(Request $request){
         
@@ -87,7 +81,7 @@ class AjaxController extends Controller
         return $htmlResult;
     }
 
-    public function ajaxRequestPost(Request $request){
+    public function ajaxRequestSearch(Request $request){
 
         $searchResults = DB::table('user_details')
             ->select('user_details.user_id', 'user_details.firstname', 'user_details.lastname', 'user_details.nickname', 'user_details.status')             
@@ -128,9 +122,6 @@ class AjaxController extends Controller
             $htmlResult .= "</table>";
             
         return $htmlResult;
-        //return response()->json(['success'=>'Data is successfully added']);
-        //Log::info($input);
-        //return response();
     }
 
 }

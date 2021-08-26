@@ -34,9 +34,7 @@
                         <tr>
                             <th>Project end date: </td>
                             <td>{{ $projectDetail -> end_date }}</td>
-                        </tr>
-                        
-                        
+                        </tr> 
                     </table>
                     <br>
                     <h2>Project members</h2>
@@ -117,39 +115,36 @@
 </script>
 
 <script>
-  function AddMember(user_id){
-    
-    $.ajax({
-      type: "post",
-      data: {
-        project_id : {{ $projectDetail -> id }},
-        member_id : user_id
-      },
-      url: "{{ route('ajaxRequest.addMember') }}",
+    function AddMember(user_id){
+        $.ajax({
+        type: "post",
+        data: {
+            project_id : {{ $projectDetail -> id }},
+            member_id : user_id
+        },
+        url: "{{ route('ajaxRequest.addMember') }}",
+        success:function(htmlResult){
+                //console.log(htmlResult);
 
-      success:function(htmlResult){
-            //console.log(htmlResult);
-
-            $("#ProjectMember").html(htmlResult);
-        }
-    });
-  }
+                $("#ProjectMember").html(htmlResult);
+            }
+        });
+    }
 </script>
 
 <script>
     function RemoveMember(project_id,user_id){
-      $.ajax({
-          type: "post",
-          data: {
-              project_id : project_id,
-              member_id : user_id
-          },
-          url: "{{ route('ajaxRequest.removeMember') }}",
-
-          success:function(htmlResult){
-            $("#ProjectMember").html(htmlResult);
-          }
-      })
+        $.ajax({
+            type: "post",
+            data: {
+                project_id : project_id,
+                member_id : user_id
+            },
+            url: "{{ route('ajaxRequest.removeMember') }}",
+            success:function(htmlResult){
+                $("#ProjectMember").html(htmlResult);
+            }
+        })
     }                         
 </script>
 
