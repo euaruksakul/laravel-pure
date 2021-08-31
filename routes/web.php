@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\InstrumentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,6 +33,8 @@ Route::post('/ajaxRequest', [AjaxController::class, 'ajaxRequestSearch'])->name(
 Route::post('/ajaxRequest/addMember', [AjaxController::class, 'ajaxRequestAddMember'])->name('ajaxRequest.addMember');
 Route::post('/ajaxRequest/removeMember', [AjaxController::class, 'ajaxRequestRemoveMember'])->name('ajaxRequest.removeMember');
 
+//Instruments
+Route::get('/instruments', [InstrumentController::class, 'index'])->middleware(['auth'])->name('instruments.index');
 
 require __DIR__.'/auth.php';
 
