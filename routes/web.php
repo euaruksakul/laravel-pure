@@ -35,6 +35,7 @@ Route::post('/ajaxRequest/removeMember', [AjaxController::class, 'ajaxRequestRem
 
 //Instruments
 Route::get('/instruments', [InstrumentController::class, 'index'])->middleware(['auth'])->name('instruments.index');
+Route::get('/instruments/{id}', [InstrumentController::class, 'show'])->middleware(['auth'])->name('instruments.show');
 
 require __DIR__.'/auth.php';
 

@@ -17,7 +17,7 @@
                             <tr>
                                 <td><img src="{{ asset($imageMainPath.$instrument -> image_path) }}" width='60px' height='60px'></td>
                                 <td>{{ $instrument -> name }}</td>
-                                <td><a href='/instrument/{{ $instrument -> id }}'>view</a></td>
+                                <td><a href='/instruments/{{ $instrument -> id }}'>view</a></td>
                             </tr>
                         @endforeach
                     </table>
