@@ -10,7 +10,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                <table>
+                    @php
+                        $imageMainPath='img/'
+                    @endphp
+                    <img src="{{ asset($imageMainPath.$instrumentDetail -> image_path) }}" width='500px' height='500px'>
+                    
+                    <table>
                         <tr>
                             <th>Instrument ID: </td>
                             <td>{{ $instrumentDetail -> id }}</td>
@@ -36,14 +41,12 @@
                             <td>{{ $instrumentDetail -> description }}</td>
                         </tr>
                     </table>
-                    @php
-                        $imageMainPath='img/'
-                    @endphp
-                    <img src="{{ asset($imageMainPath.$instrumentDetail -> image_path) }}" width='600px' height='600px'>
+                    
                 </div>
+                <a href="{{ route('instruments.edit',$instrumentDetail -> id) }}">Edit instrument detail</a>
+                <br>
                 <a href="{{ route('instruments.index') }}">Return to instrument list</a>
-                
-            </div>
+                <br>
         </div>
     </div>
 </x-app-layout>

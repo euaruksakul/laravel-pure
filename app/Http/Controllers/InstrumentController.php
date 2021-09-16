@@ -41,5 +41,44 @@ class InstrumentController extends Controller
             'instrumentDetail' => $instrumentDetail
             ]);
     }
+
+    public function edit($id){
+
+        return view('instruments.edit',[
+            'instrumentDetail' => Instrument::findOrFail($id)   
+        ]);
+    }
+
+    public function update($id, Request $request){
+        //Upload and process (resize) the image
+        $imageFile = $request -> file('imagefile');
+        //return dd($imageFile);
+        $imageExtension = strtolower($imageFile->getClientOriginalExtension());
+        $newName = hexdec(uniqid()).'.'.$imageExtension;
+        
+        //Create GD image for php
+        if ($imageExtension == 'jpeg') {
+            $image = imagecreatefromjpeg($imageFile);
+        } elseif ($imageExtension == 'gif') {
+            $image = imagecreatefromgif($imageFile);
+        } elseif ($imageExtension == 'png') {
+            $image = imagecreatefrompng($imageFile);
+        }
+
+        //Scale the image down for 'small' image folder
+        $smallImage=imagescale($image,240,-1);
+        $quality = 95;
+
+        //Save the image file (in the public folder)
+        imagejpeg($smallImage, 'img/small/instruments/'.$newName, $quality);
+        imagejpeg($image, 'img/instruments/'.$newName, $quality);
+
+        //Record new image_path in instrument DB
+        $projectDetail = Instrument::findOrFail($id);
+        $projectDetail->image_path='instruments/'.$newName;
+        $projectDetail->save();
+
+        return redirect()->route('instruments.show',['id' => $id]);
+    }
     //
 }
