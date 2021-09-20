@@ -35,7 +35,7 @@ class CreateInstrumentsTable extends Migration
             $table->string('category1')->nullable();
             $table->string('category2')->nullable();
             $table->string('category3')->nullable();
-            $table->longtext('description')->nullable();
+            $table->longText('description')->nullable();
         });
     }
 

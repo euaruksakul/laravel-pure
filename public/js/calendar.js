@@ -1,11 +1,11 @@
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const today = new Date();
-console.log(today);
+//console.log(today);
 const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 var month=currentMonth;
 var year=currentYear;
-console.log(year);
+//console.log(year);
 
 function UpdateCalendar(){
     month=10;
@@ -21,7 +21,14 @@ function DisplayNextMonth(){
         year++;
     }
     ModCell(month,year);
+    LabelCalendar(month,year);
 }
+
+/*
+function LabelBookings(){
+
+}
+*/
 
 function DisplayPreviousMonth(){
     if (month > 0){
@@ -31,6 +38,7 @@ function DisplayPreviousMonth(){
         year--;
     }
     ModCell(month,year);
+    LabelCalendar(month,year);
     //console.log('done by public .js script');
 }
 
@@ -38,6 +46,7 @@ function DisplayCurrentMonth(){
     month=currentMonth;
     year=currentYear;
     ModCell(month,year);
+    LabelCalendar(month,year);
 }
 
 function ModCell(month,year) {
@@ -58,10 +67,10 @@ function ModCell(month,year) {
             if (calendarDate > 0 && calendarDate <= daysInMonth){
                 //document.getElementById(cellName).innerHTML='<p>'+calendarDate+'</p>';
                 contentString = "<table><tr>"
-                contentString += "<td id='"+i+"_"+j+"_1' style='color:#cccccc;font-size:8px'>●</td>"
-                contentString += "<td id='"+i+"_"+j+"_2' style='color:#cccccc;font-size:8px'>●</td>"
-                contentString += "<td id='"+i+"_"+j+"_3' style='color:#cccccc;font-size:8px'>●</td></tr>"
-                contentString += "<tr><td></table>"+calendarDate;
+                contentString += "<td id='"+calendarDate.toString().padStart(2, '0')+"_morning' style='color:#cccccc;font-size:8px'>●</td>"
+                contentString += "<td id='"+calendarDate.toString().padStart(2, '0')+"_afternoon' style='color:#cccccc;font-size:8px'>●</td>"
+                contentString += "<td id='"+calendarDate.toString().padStart(2, '0')+"_evening' style='color:#cccccc;font-size:8px'>●</td>"
+                contentString += "</tr></table>"+calendarDate;
                 
                 document.getElementById(cellName).innerHTML = contentString;
                   

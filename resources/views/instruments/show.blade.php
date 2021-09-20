@@ -126,5 +126,70 @@
         </div>
     </div>
     <script type="text/javascript" src="{{ URL::asset('js/calendar.js') }}"></script>
-    <script>DisplayCurrentMonth();</script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function LabelCalendar(selectedMonth,selectedYear){
+            $.ajax({
+                type: "post",
+                data: {
+                    instrument_id : {{ $instrumentDetail -> id }}, 
+                    month : selectedMonth,
+                    year : selectedYear
+                },
+                url: "{{ route('instrument_bookings.label') }}",
+                dataType: 'JSON',
+                success: function(equipmentBookings){
+                    //console.log(equipmentBookings);
+                    let calendarDate;
+                    let booking;
+                    let i;
+                    let bookingDateArray;
+                    let bookingTimePeriod;
+                    let bookingDate;
+                    let bookingMonth;
+                    let bookingYear;
+                    let markerName;
+                    let bookingTimePeriodArray;
+                    let bookingType;
+                    let bookerId;
+                    let userId = {{ $userId }};
+                    //console.log(userId);
+
+                    equipmentBookings.forEach((booking,i)=> {
+                        bookerId = booking.user_id;
+                        bookingType = booking.booking_type;
+                        bookingDateArray = booking.booking_date.split('-');
+                        //console.log(bookingDateArray);
+                        bookingDate = bookingDateArray[2];
+                        bookingMonth = bookingDateArray[1];
+                        bookingYear = bookingDateArray[0];
+                        bookingTimePeriodArray = booking.booking_time_period.split('-');
+                        bookingTimePeriodArray.forEach((period)=>{
+                            markerName = bookingDate+'_'+period;
+                            //console.log(markerName);
+                            if (bookingType === 'usage'){
+                                if (userId === bookerId){
+                                    document.getElementById(markerName).style.color = "#00AA00";
+                                } else {
+                                    document.getElementById(markerName).style.color = "#588BEB";
+                                }
+                            } else if (bookingType === 'maintenance'){
+                                document.getElementById(markerName).style.color = "red";
+                            }
+                            
+                        })
+                    })
+                }
+            })
+        }
+    </script>
+
+    <script>DisplayCurrentMonth();</script> <!-- this has to be put here after the .ajax script -->
 </x-app-layout>
+
+

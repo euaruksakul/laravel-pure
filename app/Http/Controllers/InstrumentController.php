@@ -19,6 +19,7 @@ class InstrumentController extends Controller
     }
 
     public function show($id){
+        $userId = Auth::id();
         $instrumentDetail = DB::table('instruments')
                                 ->join('users','instruments.manager_id','=','users.id')
                                 ->join('user_details','instruments.manager_id','=','user_details.user_id')
@@ -34,11 +35,9 @@ class InstrumentController extends Controller
                                 ->where('instruments.id', '=', $id)
                                 ->first(); //Get only 1 row (can use $instrumentDetail -> xxx)
                                 //->get(); //Get many rows (have to use $instrumentDetail[0] -> xxx)
-        //$instrumentDetail = Instrument::findOrFail($id);
-        //return dd($instrumentDetail);
         return view('instruments.show',[
-        //'instrumentDetail' => Instrument::findOrFail($id)   
-            'instrumentDetail' => $instrumentDetail
+            'instrumentDetail' => $instrumentDetail,
+            'userId' => $userId
             ]);
     }
 

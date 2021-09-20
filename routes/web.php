@@ -5,6 +5,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\InstrumentController;
+use App\Http\Controllers\InstrumentBookingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +39,9 @@ Route::get('/instruments', [InstrumentController::class, 'index'])->middleware([
 Route::get('/instruments/{id}', [InstrumentController::class, 'show'])->middleware(['auth'])->name('instruments.show');
 Route::get('/instruments/{id}/edit', [InstrumentController::class, 'edit'])->middleware(['auth'])->name('instruments.edit');
 Route::put('/instruments/{id}', [InstrumentController::class, 'update'])->middleware(['auth'])->name('instruments.update');
+
+//Instrument bookings
+Route::post('/instrument-bookings/label' , [InstrumentBookingController::class, 'ajaxLabelCalendar'])->middleware(['auth'])->name('instrument_bookings.label');
 
 require __DIR__.'/auth.php';
 
