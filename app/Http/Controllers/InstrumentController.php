@@ -11,7 +11,8 @@ class InstrumentController extends Controller
 {
     public function index(){
         //$userId = Auth::id();
-        $instruments = Instrument::select('id','name','image_path')->get();
+        //$instruments = Instrument::select('id','name','image_path')->get();
+        $instruments = Instrument::select('id','name','image_path')->orderBy('name')->paginate(15);
         //return dd($projectList);
         return view('instruments.index',[
             'instruments' => $instruments
