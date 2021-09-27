@@ -1,11 +1,9 @@
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const today = new Date();
-//console.log(today);
 const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 var month=currentMonth;
 var year=currentYear;
-//console.log(year);
 
 function UpdateCalendar(){
     month=10;
@@ -55,18 +53,13 @@ function ModCell(month,year) {
     let firstDay = new Date(year, month).getDay();
     let nextMonth = new Date(year, month, 32).getDate();
     let daysInMonth = 32-nextMonth;
-
-    let cellName;
-    let cell;
     let calendarDate=(-1*firstDay)+1;
-    let contentString;
 
     for (let i=1;i<=6;i++){
         for (let j=0;j<=6;j++){
-            cellName=i+"_"+j;
+            let cellName=i+"_"+j;
             if (calendarDate > 0 && calendarDate <= daysInMonth){
-                //document.getElementById(cellName).innerHTML='<p>'+calendarDate+'</p>';
-                contentString = "<table><tr>"
+                let contentString = "<table><tr>"
                 contentString += "<td id='"+calendarDate.toString().padStart(2, '0')+"_morning' style='color:#cccccc;font-size:8px'>●</td>"
                 contentString += "<td id='"+calendarDate.toString().padStart(2, '0')+"_afternoon' style='color:#cccccc;font-size:8px'>●</td>"
                 contentString += "<td id='"+calendarDate.toString().padStart(2, '0')+"_evening' style='color:#cccccc;font-size:8px'>●</td>"

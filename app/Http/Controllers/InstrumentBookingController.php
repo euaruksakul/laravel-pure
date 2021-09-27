@@ -15,21 +15,11 @@ class InstrumentBookingController extends Controller
         $year = $request -> year; //year xxxx
         $instrument_id = $request -> instrument_id;
         
-        $bookings = DB::table('instrument_bookings')
-            ->where('instrument_id', $instrument_id)
-            ->whereMonth('booking_date','=', $month+1) //in SQL/Laravel: 1 = Jan, 2 = Feb, ..
-            ->whereYear('booking_date','=', $year)
-            ->get();
-        
-        /*
-        $bookings=InstrumentBooking::
-                where('instrument_id', $instrument_id)
-                //->whereMonth('booking_date','8')
-                //->whereMonth('booking_date',Carbon::today()->month)
-                //->whereMonth('booking_date', $month)
-                //->whereYear('booking_date', $year)
+        $bookings=InstrumentBooking::where('instrument_id', $instrument_id)
+                ->whereMonth('booking_date','=', $month+1) //in SQL/Laravel: 1 = Jan, 2 = Feb, ..
+                ->whereYear('booking_date','=', $year)
                 ->get();
-        */
+        
         if (!$bookings -> isEmpty()){
             foreach ($bookings as $booking){
                 $bookingDate = $booking->booking_date;
@@ -48,8 +38,6 @@ class InstrumentBookingController extends Controller
             $return_JSON = "";
         }
         
-            
         return ($return_JSON);
     }
-    //
 }

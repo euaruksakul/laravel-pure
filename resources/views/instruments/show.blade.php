@@ -144,34 +144,17 @@
                 url: "{{ route('instrument_bookings.label') }}",
                 dataType: 'JSON',
                 success: function(equipmentBookings){
-                    //console.log(equipmentBookings);
-                    let calendarDate;
-                    let booking;
-                    let i;
-                    let bookingDateArray;
-                    let bookingTimePeriod;
-                    let bookingDate;
-                    let bookingMonth;
-                    let bookingYear;
-                    let markerName;
-                    let bookingTimePeriodArray;
-                    let bookingType;
-                    let bookerId;
                     let userId = {{ $userId }};
-                    //console.log(userId);
-
                     equipmentBookings.forEach((booking,i)=> {
-                        bookerId = booking.user_id;
-                        bookingType = booking.booking_type;
-                        bookingDateArray = booking.booking_date.split('-');
-                        //console.log(bookingDateArray);
-                        bookingDate = bookingDateArray[2];
-                        bookingMonth = bookingDateArray[1];
-                        bookingYear = bookingDateArray[0];
-                        bookingTimePeriodArray = booking.booking_time_period.split('-');
+                        let bookerId = booking.user_id;
+                        let bookingType = booking.booking_type;
+                        let bookingDateArray = booking.booking_date.split('-');
+                        let bookingDate = bookingDateArray[2];
+                        let bookingMonth = bookingDateArray[1];
+                        let bookingYear = bookingDateArray[0];
+                        let bookingTimePeriodArray = booking.booking_time_period.split('-');
                         bookingTimePeriodArray.forEach((period)=>{
-                            markerName = bookingDate+'_'+period;
-                            //console.log(markerName);
+                            let markerName = bookingDate+'_'+period;
                             if (bookingType === 'usage'){
                                 if (userId === bookerId){
                                     document.getElementById(markerName).style.color = "#00AA00";
@@ -180,16 +163,17 @@
                                 }
                             } else if (bookingType === 'maintenance'){
                                 document.getElementById(markerName).style.color = "red";
-                            }
-                            
+                            }                       
                         })
                     })
                 }
             })
         }
     </script>
-
     <script>DisplayCurrentMonth();</script> <!-- this has to be put here after the .ajax script -->
 </x-app-layout>
+
+
+
 
 
