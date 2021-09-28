@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Instrument;
+use App\Models\ProjectMember;
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB; //For query builder 
 
@@ -35,10 +37,23 @@ class InstrumentController extends Controller
                                         )
                                 ->where('instruments.id', '=', $id)
                                 ->first(); //Get only 1 row (can use $instrumentDetail -> xxx)
+        
                                 //->get(); //Get many rows (have to use $instrumentDetail[0] -> xxx)
+        
+        $userProjects = DB::table('project_members')
+                        ->join('projects','projects.id','=','project_members.project_id')
+                        ->where('project_members.member_id',$userId)
+                        ->select('projects.name as project_name',
+                                'project_members.project_id as project_id'
+                                )
+                        ->get();
+        
+        //$userProjects = Project::where('manager_id',$id)->get();
+
         return view('instruments.show',[
             'instrumentDetail' => $instrumentDetail,
-            'userId' => $userId
+            'userId' => $userId,
+            'userProjects' => $userProjects
             ]);
     }
 

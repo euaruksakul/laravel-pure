@@ -42,6 +42,8 @@ Route::put('/instruments/{id}', [InstrumentController::class, 'update'])->middle
 
 //Instrument bookings
 Route::post('/instrument-bookings/label' , [InstrumentBookingController::class, 'ajaxLabelCalendar'])->middleware(['auth'])->name('instrument_bookings.label');
+Route::post('/instrument-bookings' , [InstrumentBookingController::class, 'store'])->middleware(['auth'])->name('instrument_bookings.store');
+
 
 require __DIR__.'/auth.php';
 

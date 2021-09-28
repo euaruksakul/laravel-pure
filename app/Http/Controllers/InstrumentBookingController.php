@@ -10,6 +10,23 @@ use Illuminate\Support\Facades\DB; //For query builder
 
 class InstrumentBookingController extends Controller
 {
+    public function store(Request $request){
+        $user_id = Auth::id();
+        $instrumentBooking = new InstrumentBooking();
+        $instrumentBooking->user_id = $user_id;
+        $instrumentBooking->instrument_id = $request->instrument_id;
+        $instrumentBooking->project_id = $request->project_id;
+        $instrumentBooking->booking_date = $request->booking_date;
+        $instrumentBooking->booking_time_period = $request->booking_time_period;
+        $instrumentBooking->booking_type = $request->booking_type;
+        $instrumentBooking->manager_ack_booking = 0;
+        $instrumentBooking->manager_ack_finish = 0;
+
+        $instrumentBooking->save();
+
+        return redirect()->route('instruments.show',['id' => $request->instrument_id]);
+    }
+    
     public function ajaxLabelCalendar (Request $request){
         $month = $request -> month; //From JS: month - 0 = Jan, 1 = Feb, ...
         $year = $request -> year; //year xxxx

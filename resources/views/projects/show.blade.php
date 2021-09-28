@@ -96,7 +96,7 @@
         e.preventDefault();
 
         var searchString = $("#searchString").val();
-        console.log(searchString);
+        //console.log(searchString);
         
         $.ajax({
         type: "POST",
